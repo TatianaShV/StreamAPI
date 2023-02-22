@@ -17,20 +17,21 @@ public class Main {
             );
         }
         long countUnderagePersons = persons.stream()
-                .filter(person -> person.getAge() <= 18)
+                .filter(person -> person.getAge() >= 18)
                 .count();
         System.out.println(countUnderagePersons);
 
         List<String> conscripts = persons.stream()
-                .filter(person -> person.getSex() == Sex.MAN && person.getAge() <= 18 && person.getAge() >= 27)
+                .filter(person -> person.getSex() == Sex.MAN && person.getAge() >= 18 && person.getAge() <= 27)
                 .map(Person::toString)
                 .collect(Collectors.toList());
-        System.out.println(conscripts);
 
+        System.out.println(conscripts);
         List<Person> workers = persons.stream()
-                .filter(person -> person.getEducation() == Education.HIGHER && person.getSex() == Sex.MAN && person.getAge() <= 18 && person.getAge() >= 65
-                        || person.getEducation() == Education.HIGHER && person.getSex() == Sex.WOMAN && person.getAge() <= 18 && person.getAge() >= 60)
+                .filter(person -> person.getEducation() == Education.HIGHER && person.getSex() == Sex.MAN && person.getAge() >= 18 && person.getAge() <= 65
+                        || person.getEducation() == Education.HIGHER && person.getSex() == Sex.WOMAN && person.getAge() >= 18 && person.getAge() <= 60)
                 .sorted(Comparator.comparing(Person::getFamily))
+                .limit(5)
                 .collect(Collectors.toList());
         System.out.println(workers);
     }
